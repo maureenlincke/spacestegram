@@ -11,3 +11,11 @@
  * 
  * Re-export Feature, Loading, Preview, Search, and Title from their respective files
  */
+// import {Feature} from './components';
+import Loading from './Loading';
+// import {Preview} from './components';
+// import {Search} from './components';
+import Title from './Title';
+
+export { Loading, Title }
+
