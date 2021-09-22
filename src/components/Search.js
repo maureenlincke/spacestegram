@@ -9,9 +9,9 @@ import {
   fetchQueryResults
 } from '../api';
 
-const Search = (props) => {
+const Search = (setSearchResults, setIsLoading) => {
   // Make sure to destructure setIsLoading and setSearchResults from the props
-
+  let {info, records} = setSearchResults
 
   /**
    * We are at the Search component, a child of app. This has a form, so we need to use useState for
@@ -23,7 +23,11 @@ const Search = (props) => {
    * century, setCentury (default should be the string 'any')
    * classification, setClassification (default should be the string 'any')
    */
-
+  const [centuryList, setCenturyList] = useState([]);
+  const [classificationList, setClassificationList] = useState([]);
+  const [queryString, setQueryString] = useState('');
+  const [century, setCentury] = useState('any')
+  const [classification, setClassification] = useState('any')
 
   /**
    * Inside of useEffect, use Promise.all([]) with fetchAllCenturies and fetchAllClassifications
@@ -33,7 +37,7 @@ const Search = (props) => {
    * Make sure to console.error on caught errors from the API methods.
    */
   useEffect(() => {
-
+    Promise.all([fetchAllCenturies(), fetchAllClassifications()]).then(setCenturyList(fetchAllCenturies), setClassificationList(fetchAllClassifications))
   }, []);
 
   /**
@@ -54,6 +58,18 @@ const Search = (props) => {
    */
   return <form id="search" onSubmit={async (event) => {
     // write code here
+    event.preventDefault();
+    setIsLoading(true)
+    try{
+      fetchQueryResults({ century, classification, queryString });
+      setSearchResults(century, classification, queryString);
+    }
+    catch (errorObject){
+      console.error(errorObject)
+    }
+    finally{
+      setIsLoading(false)
+    }
   }}>
     <fieldset>
       <label htmlFor="keywords">Query</label>

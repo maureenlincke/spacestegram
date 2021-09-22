@@ -6,7 +6,7 @@ import {
   //Feature,
   Loading,
   //Preview,
-  //Search,
+  Search,
   Title
 } from './components';
 
@@ -19,12 +19,15 @@ const App = () => {
    * featuredResult, setFeaturedResult (default should be null)
    * isLoading, setIsLoading (default should be false)
    */
+  const [searchResults, setSearchResults] = useState({info: {}, records: []});
+  const [featuredResult, setFeaturedResult] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   return <div className="app">
     {/* <Title /> is static, doesn't need any props */}
     <Title />
     {/* <Search /> needs props for setIsLoading and setSearchResults (trigger <Loading /> on search start/end, and transfer results to preview) */}
-    {/* <Search /> */}
+    <Search setSearchResults={setSearchResults} setIsLoading={setIsLoading}/>
     {/* <Preview /> needs props for searchResults, setIsLoading and setSearchResults (clicking prev/next buttons), and setFeaturedResult (clicking a preview) */}
     {/* <Preview /> */}
     {/* <Feature /> needs props for featuredResult, as well as setIsLoading and setSearchResults (clicking on searchable properties) */}
@@ -34,10 +37,7 @@ const App = () => {
   </div>
 }
 
-/**
- * Boostrap the <App /> component into the '#app' element in the DOM,
- * using ReactDOM.render();
- */
+
  ReactDOM.render(
   <App />,
   document.getElementsByClassName('app')

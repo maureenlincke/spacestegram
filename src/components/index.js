@@ -14,8 +14,8 @@
 // import {Feature} from './components';
 import Loading from './Loading';
 // import {Preview} from './components';
-// import {Search} from './components';
+import {Search} from './Search';
 import Title from './Title';
 
-export { Loading, Title }
+export { Loading, Search, Title }
 
