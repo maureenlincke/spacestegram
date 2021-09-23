@@ -9,9 +9,9 @@ import {
   fetchQueryResults
 } from '../api';
 
-const Search = (setSearchResults, setIsLoading) => {
+const Search = ({setIsLoading, setSearchResults}) => {
   // Make sure to destructure setIsLoading and setSearchResults from the props
-  let {info, records} = setSearchResults
+  
 
   /**
    * We are at the Search component, a child of app. This has a form, so we need to use useState for
@@ -77,17 +77,18 @@ const Search = (setSearchResults, setIsLoading) => {
         id="keywords" 
         type="text" 
         placeholder="enter keywords..." 
-        value={/* this should be the query string */} 
-        onChange={/* this should update the value of the query string */}/>
+        value={queryString} 
+        onChange={setQueryString()}/>
     </fieldset>
     <fieldset>
       <label htmlFor="select-classification">Classification <span className="classification-count">({ classificationList.length })</span></label>
       <select 
         name="classification"
         id="select-classification"
-        value={/* this should be the classification */} 
-        onChange={/* this should update the value of the classification */}>
+        value={classification} 
+        onChange={setClassification()}>
         <option value="any">Any</option>
+        {classificationList.map(() => return <option />)}
         {/* map over the classificationList, return an <option /> */}
       </select>
     </fieldset>
@@ -96,9 +97,10 @@ const Search = (setSearchResults, setIsLoading) => {
       <select 
         name="century" 
         id="select-century"
-        value={/* this should be the century */} 
-        onChange={/* this should update the value of the century */}>
+        value={century} 
+        onChange={setCentury()}>
         <option value="any">Any</option>
+        {centuryList.map(() => return <option />)}
         {/* map over the centuryList, return an <option /> */}
       </select>
      </fieldset>
