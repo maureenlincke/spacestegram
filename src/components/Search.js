@@ -9,9 +9,14 @@ import {
   fetchQueryResults
 } from '../api';
 
-const Search = ({setIsLoading, setSearchResults}) => {
+const Search = (props) => {
   // Make sure to destructure setIsLoading and setSearchResults from the props
-  
+  props = {
+    setIsLoading: setIsLoading,
+    setSearchResults: setSearchResults,
+  }
+  const setIsLoading = props.setIsLoading;
+  const setSearchResults = props.setSearchResults;
 
   /**
    * We are at the Search component, a child of app. This has a form, so we need to use useState for
@@ -88,7 +93,7 @@ const Search = ({setIsLoading, setSearchResults}) => {
         value={classification} 
         onChange={setClassification()}>
         <option value="any">Any</option>
-        {classificationList.map(() => return <option />)}
+        {classificationList.map(() => {return <option />})}
         {/* map over the classificationList, return an <option /> */}
       </select>
     </fieldset>
@@ -100,7 +105,7 @@ const Search = ({setIsLoading, setSearchResults}) => {
         value={century} 
         onChange={setCentury()}>
         <option value="any">Any</option>
-        {centuryList.map(() => return <option />)}
+        {centuryList.map(() => {return <option />})}
         {/* map over the centuryList, return an <option /> */}
       </select>
      </fieldset>
