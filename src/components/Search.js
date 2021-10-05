@@ -9,14 +9,9 @@ import {
   fetchQueryResults
 } from '../api';
 
-const Search = (props) => {
+const Search = ({setIsLoading, setSearchResults}) => {
   // Make sure to destructure setIsLoading and setSearchResults from the props
-  props = {
-    setIsLoading: setIsLoading,
-    setSearchResults: setSearchResults,
-  }
-  const setIsLoading = props.setIsLoading;
-  const setSearchResults = props.setSearchResults;
+  
 
   /**
    * We are at the Search component, a child of app. This has a form, so we need to use useState for
@@ -31,8 +26,8 @@ const Search = (props) => {
   const [centuryList, setCenturyList] = useState([]);
   const [classificationList, setClassificationList] = useState([]);
   const [queryString, setQueryString] = useState('');
-  const [century, setCentury] = useState('any')
-  const [classification, setClassification] = useState('any')
+  const [century, setCentury] = useState('any');
+  const [classification, setClassification] = useState('any');
 
   /**
    * Inside of useEffect, use Promise.all([]) with fetchAllCenturies and fetchAllClassifications
@@ -42,7 +37,7 @@ const Search = (props) => {
    * Make sure to console.error on caught errors from the API methods.
    */
   useEffect(() => {
-    Promise.all([fetchAllCenturies(), fetchAllClassifications()]).then(setCenturyList(fetchAllCenturies), setClassificationList(fetchAllClassifications))
+    Promise.all([fetchAllCenturies(), fetchAllClassifications()]).then((values) => {console.log(values)})
   }, []);
 
   /**

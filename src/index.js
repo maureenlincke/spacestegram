@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import {
   //Feature,
   Loading,
-  Preview,
+  //Preview,
   Search,
   Title
 } from './components';
@@ -29,7 +29,7 @@ const App = () => {
     {/* <Search /> needs props for setIsLoading and setSearchResults (trigger <Loading /> on search start/end, and transfer results to preview) */}
     <Search setSearchResults={setSearchResults} setIsLoading={setIsLoading} />
     {/* <Preview /> needs props for searchResults, setIsLoading and setSearchResults (clicking prev/next buttons), and setFeaturedResult (clicking a preview) */}
-    <Preview searchResults={searchResults} setIsLoading={setIsLoading} setSearchResults={setSearchResults} />
+    {/* <Preview searchResults={searchResults} setIsLoading={setIsLoading} setSearchResults={setSearchResults} /> */}
     {/* <Feature /> needs props for featuredResult, as well as setIsLoading and setSearchResults (clicking on searchable properties) */}
     {/* <Feature /> */}
     {/* <Loading /> is static, but should only render when isLoading is true */}
@@ -40,5 +40,5 @@ const App = () => {
 
  ReactDOM.render(
   <App />,
-  document.getElementsByClassName('app')
+  document.getElementById('app')
   );
