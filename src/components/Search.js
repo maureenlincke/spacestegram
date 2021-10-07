@@ -37,7 +37,12 @@ const Search = ({setIsLoading, setSearchResults}) => {
    * Make sure to console.error on caught errors from the API methods.
    */
   useEffect(() => {
-    Promise.all([fetchAllCenturies(), fetchAllClassifications()]).then((values) => {console.log(values)})
+    Promise.all([fetchAllCenturies(), fetchAllClassifications()])
+    .then((values) => {setCenturyList(values[0]);
+    setClassificationList(values[1])
+    })
+    .catch((error) => {console.error(error)})
+    //.finally(() => {setIsLoading(false)})
   }, []);
 
   /**
@@ -61,8 +66,8 @@ const Search = ({setIsLoading, setSearchResults}) => {
     event.preventDefault();
     setIsLoading(true)
     try{
-      fetchQueryResults({ century, classification, queryString });
-      setSearchResults(century, classification, queryString);
+      const results = await fetchQueryResults({ century, classification, queryString });
+      setSearchResults(results);
     }
     catch (errorObject){
       console.error(errorObject)
@@ -88,7 +93,7 @@ const Search = ({setIsLoading, setSearchResults}) => {
         value={classification} 
         onChange={setClassification()}>
         <option value="any">Any</option>
-        {classificationList.map(() => {return <option />})}
+        {classificationList.map((element, index) => {return <option key={index} value={element.name}>{element.name}</option>})}
         {/* map over the classificationList, return an <option /> */}
       </select>
     </fieldset>
@@ -100,7 +105,7 @@ const Search = ({setIsLoading, setSearchResults}) => {
         value={century} 
         onChange={setCentury()}>
         <option value="any">Any</option>
-        {centuryList.map(() => {return <option />})}
+        {centuryList.map((element, index) => {return <option key={index} value={element.name}>{element.name}</option>})}
         {/* map over the centuryList, return an <option /> */}
       </select>
      </fieldset>
